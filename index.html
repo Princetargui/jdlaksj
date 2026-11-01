@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#C2410C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Paradis de Luxe">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Paradis de Luxe by Meenah</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap">
 <style>
@@ -112,7 +120,7 @@ footer h3{font-size:1.3rem;margin-bottom:.4rem}
 
 <footer><div class="wrap cols">
   <div><a class="brand" href="#top"><svg><use href="#mark"/></svg><span class="wm"><b>Paradis de Luxe</b><i>by Meenah</i></span></a><p>Only Business Time. Pour tous vos besoins, contactez-nous.</p></div>
-  <div><h3>Nous contacter</h3><ul><li><a id="ftWa" target="_blank" rel="noopener">WhatsApp : +227 87 02 71 28</a></li><li><a href="https://www.tiktok.com/@mdmcollection8" target="_blank" rel="noopener">TikTok : @mdmcollection8</a></li></ul></div>
+  <div><h3>Nous contacter</h3><ul><li><a id="ftWa" target="_blank" rel="noopener">WhatsApp : +227 87 02 71 28</a></li><li><a href="https://www.tiktok.com/@mdmcollection8" target="_blank" rel="noopener">TikTok : @mdmcollection8</a></li></ul><button class="btn ghost" id="install" style="display:none;margin-top:1rem">Installer l’application</button></div>
 </div></footer>
 
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Panier">
@@ -161,6 +169,13 @@ const open=v=>$("#drawer").classList.toggle("open",v);
 $("#openCart").onclick=()=>open(true);$("#closeCart").onclick=()=>open(false);$("#bk").onclick=()=>open(false);
 document.addEventListener("keydown",e=>{if(e.key==="Escape")open(false)});
 chips();grid();render();
+</script>
+<script>
+if("serviceWorker" in navigator&&location.protocol==="https:"){addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
+let dp=null;const ib=document.getElementById("install");
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;ib.style.display="inline-flex"});
+ib.onclick=async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;ib.style.display="none"};
+addEventListener("appinstalled",()=>{ib.style.display="none"});
 </script>
 </body>
 </html>
